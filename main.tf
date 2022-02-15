@@ -1,3 +1,22 @@
+terraform {
+  required_version = ">= 1.0.5"
+  backend "s3" {
+    bucket               = "argo-test-backend"
+    key                  = "argo-test.state"
+    dynamodb_table       = "sitelink.gitops-argo-test-terraform-state"
+    region               = "ap-southeast-2"
+    # profile              = "dev-admin"
+    encrypt              = true
+    workspace_key_prefix = "terraform-state"
+  }
+  required_providers {
+    aws         = ">= 3.59.0"
+    local       = "2.1.0"
+    kubernetes  = "2.5.0"
+    # additional required providers can be added here as an input
+    
+  }
+}
 provider "aws" {
   region = local.region
 }
